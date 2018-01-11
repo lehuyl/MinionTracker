@@ -1,11 +1,12 @@
 package ca.sfu.cmpt213.a1;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Implements the main menu interface.
+ * @author Steven Le
+ */
 public class TextMenu {
-    public static final int MENU_ROW_LIMIT = 3;
-    public static final int MIDDLE_ROW = 1;
     private String title;
     private String[] options;
 
@@ -27,6 +28,7 @@ public class TextMenu {
 
     public void display()
     {
+        System.out.println();
         starPrint(title);
         System.out.print("* ");
         System.out.print(title);
@@ -42,12 +44,8 @@ public class TextMenu {
 
     public static int getNumberBetween(int min, int max, Scanner scanner)
     {
-//        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter an integer between " + min + " and " + max);
-        int i = scanner.nextInt();
-//        scanner.close();
+         return scanner.nextInt();
 
-        return i;
     }
 
     public int getSelection(Scanner scanner)

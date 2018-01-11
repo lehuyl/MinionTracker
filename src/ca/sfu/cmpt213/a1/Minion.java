@@ -2,6 +2,7 @@ package ca.sfu.cmpt213.a1;
 
 /**
  * Contains properties of a Minion object
+ * @author Steven Le
  */
 public class Minion
 {
@@ -40,7 +41,7 @@ public class Minion
     @Override
     public String toString()
     {
-        return getClass().getName() + ": " + "name= " + this.name + ", height= " + this.height +
-                ", Evil Deeds= " + this.numEvilDeeds;
+        return getClass().getName() + ": " + "Name: " + this.name + ", Height: " + this.height +
+                ", Evil Deeds: " + this.numEvilDeeds;
     }
 }

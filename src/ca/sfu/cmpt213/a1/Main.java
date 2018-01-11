@@ -1,18 +1,25 @@
 package ca.sfu.cmpt213.a1;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Stores the program data used to run.
+ * @author Steven Le
+ */
 public class Main {
 
-    public static final String INTRO = "Welcome to the Evil Minion Tracter (tm) by Steven";
-    public static final String OPTION1 = "List Minions";
-    public static final String OPTION2 = "Add a new minion";
-    public static final String OPTION3 = "Remove a minion";
-    public static final String OPTION4 = "Attribute evil deed to a minion";
-    public static final String OPTION5 = "DEBUG: Dump Objects (toString)";
-    public static final String OPTION6 = "Exit";
+    private static final String INTRO = "Welcome to the Evil Minion Tracter (tm) by Steven";
+    private static final String OPTION1 = "List Minions";
+    private static final String OPTION2 = "Add a new minion";
+    private static final String OPTION3 = "Remove a minion";
+    private static final String OPTION4 = "Attribute evil deed to a minion";
+    private static final String OPTION5 = "DEBUG: Dump Objects (toString)";
+    private static final String OPTION6 = "Exit";
+    private static final int OPTIONS_MIN = 1;
+    private static final int OPTIONS_MAX = 6;
+    private static final String CANCEL = "Enter 0 to cancel";
+    private static final String ALL_MINION_OBJECTS = "All minion objects:";
 
     public static void main(String[] args)
     {
@@ -20,26 +27,10 @@ public class Main {
         System.out.println(INTRO);
         starPrint(INTRO);
 
-        String[] options = new String[]{OPTION1, OPTION2,
-                OPTION3, OPTION4,
-                OPTION5, OPTION6};
+        String[] options = new String[]{OPTION1, OPTION2, OPTION3, OPTION4, OPTION5, OPTION6};
 
         TextMenu menu = new TextMenu("Main Menu", options);
-        ArrayList<Minion> listOfMinions = new ArrayList<Minion>();
-
-        listOfMinions.add(new Minion("Steven", 1.6));
-        listOfMinions.add(new Minion("james", 1.6));
-        listOfMinions.add(new Minion("jonathan", 1.6));
-        listOfMinions.add(new Minion("justin", 1.6));
-        listOfMinions.add(new Minion("ryan", 1.6));
-        listOfMinions.add(new Minion("brent", 1.6));
-        listOfMinions.add(new Minion("mitch", 1.6));
-        listOfMinions.add(new Minion("jenna", 1.6));
-
-        menu.display();
-
-//        addMinion(listOfMinions);
-//        removeMinion(listOfMinions);
+        ArrayList<Minion> listOfMinions = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
@@ -62,6 +53,10 @@ public class Main {
 
     private static void listMinions(ArrayList listOfMinions)
     {
+        String title = "List of Minions";
+        System.out.println(title);
+        starPrint(title);
+
         if(listOfMinions.size() <= 0)
         {
             System.out.println("No minions found");
@@ -90,34 +85,37 @@ public class Main {
         }
 
         listOfMinions.add(new Minion(name, height));
-        listMinions(listOfMinions);
     }
 
     private static void removeMinion(ArrayList listOfMinions, Scanner scanner)
     {
         listMinions(listOfMinions);
+        System.out.println(CANCEL);
         int input = 0;
 
         input = scanner.nextInt();
+        while(input < 0 || input > listOfMinions.size())
+        {
+            System.out.println(errorSelection(listOfMinions));
+            input = scanner.nextInt();
+        }
         if(input == 0)
         {
             return;
         }
 
         listOfMinions.remove(input - 1);
-        listMinions(listOfMinions);
     }
 
     private static boolean chooseOption(TextMenu menu, ArrayList listOfMinions, Scanner scanner)
     {
-//        System.out.println("Enter an integer between " + 1 + " and " + 6);
-//        int input = scanner.nextInt();
-
+        menu.display();
         int input = menu.getSelection(scanner);
-        if(input < 0 || input > 6)
+        while(input < OPTIONS_MIN || input > OPTIONS_MAX)
         {
-            System.out.println("Error: Enter a valid selection between 1 and 6");
-            return true;
+            System.out.println("Error: Enter a valid selection between " + OPTIONS_MIN
+                    + " and " + OPTIONS_MAX);
+            input = menu.getSelection(scanner);
         }
 
 
@@ -141,8 +139,17 @@ public class Main {
     private static void incrementEvilDeeds(ArrayList listOfMinions, Scanner scanner)
     {
         listMinions(listOfMinions);
-//        Scanner scanner = new Scanner(System.in);
+        System.out.println(CANCEL);
         int input = scanner.nextInt();
+        while(input < 0 || input > listOfMinions.size())
+        {
+            System.out.println(errorSelection(listOfMinions));
+            input = scanner.nextInt();
+        }
+        if(input == 0)
+        {
+            return;
+        }
         Minion minion = (Minion) listOfMinions.get(input - 1);
         minion.incrementEvilDeeds();
         System.out.println(minion.getName() + " now has " + minion.getNumEvilDeeds() + " evil deed(s)!");
@@ -151,11 +158,24 @@ public class Main {
 
     private static void debugDump(ArrayList listOfMinions)
     {
+        System.out.println(ALL_MINION_OBJECTS);
         for(int rows = 0; rows < listOfMinions.size(); rows++)
         {
             System.out.print(rows + 1 + ". ");
             System.out.println(listOfMinions.get(rows));
         }
+    }
+
+    private static String errorSelection(ArrayList listOfMinions)
+    {
+        int min = 0;
+        int max = listOfMinions.size();
+        if(listOfMinions.size() > 0)
+        {
+            min = 1;
+        }
+
+        return "Error: Enter a valid selection between " + min + " and " + max;
     }
 
 }
