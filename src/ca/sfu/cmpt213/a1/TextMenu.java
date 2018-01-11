@@ -1,3 +1,5 @@
+package ca.sfu.cmpt213.a1;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +14,7 @@ public class TextMenu {
         this.title = title;
         this.options = options;
     }
+
 
     private static void starPrint(String title)
     {
@@ -37,18 +40,18 @@ public class TextMenu {
         }
     }
 
-    public static int getNumberBetween(int min, int max)
+    public static int getNumberBetween(int min, int max, Scanner scanner)
     {
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter an integer between " + min + " and " + max);
         int i = scanner.nextInt();
-        scanner.close();
+//        scanner.close();
 
         return i;
     }
 
-    public int getSelection()
+    public int getSelection(Scanner scanner)
     {
-        return getNumberBetween(0, options.length);
+        return getNumberBetween(1, options.length, scanner);
     }
 }

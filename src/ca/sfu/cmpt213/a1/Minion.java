@@ -1,3 +1,5 @@
+package ca.sfu.cmpt213.a1;
+
 /**
  * Contains properties of a Minion object
  */
@@ -38,7 +40,7 @@ public class Minion
     @Override
     public String toString()
     {
-        return " " + this.name + ", " + this.height + "m, "
-                + this.numEvilDeeds + " evil deed(s)";
+        return getClass().getName() + ": " + "name= " + this.name + ", height= " + this.height +
+                ", Evil Deeds= " + this.numEvilDeeds;
     }
 }
