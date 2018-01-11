@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Stores the program data used to run.
+ * Class used to run the program files.
  * @author Steven Le
  */
 public class Main {
@@ -21,6 +21,10 @@ public class Main {
     private static final String CANCEL = "Enter 0 to cancel";
     private static final String ALL_MINION_OBJECTS = "All minion objects:";
 
+    /**
+     * Main() used to start the program.
+     * @param args
+     */
     public static void main(String[] args)
     {
         starPrint(INTRO);
@@ -42,6 +46,10 @@ public class Main {
 
     }
 
+    /**
+     * Prints the stars under a subtitle heading.
+     * @param title
+     */
     private static void starPrint(String title)
     {
         for(int i = 0; i < title.length(); i++)
@@ -51,6 +59,10 @@ public class Main {
         System.out.println();
     }
 
+    /**
+     * Used to list all available minions.
+     * @param listOfMinions
+     */
     private static void listMinions(ArrayList listOfMinions)
     {
         String title = "List of Minions";
@@ -71,6 +83,11 @@ public class Main {
         }
     }
 
+    /**
+     * Used to add minions to the underlying ArrayList database.
+     * @param listOfMinions
+     * @param scanner
+     */
     private static void addMinion(ArrayList listOfMinions, Scanner scanner)
     {
         System.out.println("Enter minion name: ");
@@ -87,6 +104,11 @@ public class Main {
         listOfMinions.add(new Minion(name, height));
     }
 
+    /**
+     * Removes minion from the ArrayList database.
+     * @param listOfMinions
+     * @param scanner
+     */
     private static void removeMinion(ArrayList listOfMinions, Scanner scanner)
     {
         listMinions(listOfMinions);
@@ -107,6 +129,13 @@ public class Main {
         listOfMinions.remove(input - 1);
     }
 
+    /**
+     * Main method that runs the entirety of the main menu interface and options.
+     * @param menu
+     * @param listOfMinions
+     * @param scanner
+     * @return
+     */
     private static boolean chooseOption(TextMenu menu, ArrayList listOfMinions, Scanner scanner)
     {
         menu.display();
@@ -117,7 +146,6 @@ public class Main {
                     + " and " + OPTIONS_MAX);
             input = menu.getSelection(scanner);
         }
-
 
         switch (input)
         {
@@ -136,6 +164,11 @@ public class Main {
         return false;
     }
 
+    /**
+     * Used to increment a specific minion of the user's choosing's evil deeds.
+     * @param listOfMinions
+     * @param scanner
+     */
     private static void incrementEvilDeeds(ArrayList listOfMinions, Scanner scanner)
     {
         listMinions(listOfMinions);
@@ -156,6 +189,10 @@ public class Main {
 
     }
 
+    /**
+     * Prints all minions specifications.
+     * @param listOfMinions
+     */
     private static void debugDump(ArrayList listOfMinions)
     {
         System.out.println(ALL_MINION_OBJECTS);
@@ -165,6 +202,7 @@ public class Main {
             System.out.println(listOfMinions.get(rows));
         }
     }
+
 
     private static String errorSelection(ArrayList listOfMinions)
     {

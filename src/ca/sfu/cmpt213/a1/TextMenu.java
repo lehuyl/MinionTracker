@@ -3,13 +3,18 @@ package ca.sfu.cmpt213.a1;
 import java.util.Scanner;
 
 /**
- * Implements the main menu interface.
+ * Class that implements the main menu interface.
  * @author Steven Le
  */
 public class TextMenu {
     private String title;
     private String[] options;
 
+    /**
+     * TextMenu constructor
+     * @param title
+     * @param options
+     */
     public TextMenu(String title, String[] options)
     {
         this.title = title;
@@ -26,6 +31,9 @@ public class TextMenu {
         System.out.println();
     }
 
+    /**
+     * Displays the main menu in the terminal.
+     */
     public void display()
     {
         System.out.println();
@@ -48,6 +56,11 @@ public class TextMenu {
 
     }
 
+    /**
+     * Returns the user's menu selection.
+     * @param scanner
+     * @return
+     */
     public int getSelection(Scanner scanner)
     {
         return getNumberBetween(1, options.length, scanner);
